@@ -2,7 +2,7 @@
 
 const allEmployees = document.getElementById("all-employees");
 
-let all = [];
+let allEmployeesList = [];
 
 async function getEmployees() {
   try {
@@ -12,8 +12,8 @@ async function getEmployees() {
     const res = await fetch("https://reqres.in/api/users?page=2");
     const employees2 = await res.json();
 
-    all = employees.data.concat(employees2.data);
-    // console.log(all);
+    allEmployeesList = employees.data.concat(employees2.data);
+    // console.log(allEmployeesList);
   } catch (error) {
     console.log(error);
   }
@@ -25,7 +25,7 @@ let currentPage = 1;
 async function renderEmployees() {
   await getEmployees();
   let tableEmployees = "";
-  all
+  allEmployeesList
     .filter((numRow, index) => {
       const renderStarts = (currentPage - 1) * numberOfEmployeesPerPage;
       const renderEnds = currentPage * numberOfEmployeesPerPage;
@@ -50,7 +50,8 @@ function prevPage() {
   renderEmployees();
 }
 function nextPage() {
-  if (currentPage * numberOfEmployeesPerPage <= all.length) currentPage++;
+  if (currentPage * numberOfEmployeesPerPage <= allEmployeesList.length)
+    currentPage++;
   renderEmployees();
 }
 
